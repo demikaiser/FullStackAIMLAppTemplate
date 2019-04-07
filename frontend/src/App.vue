@@ -1,17 +1,28 @@
 <template>
   <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+    <HelloWorld v-bind:results="results" />
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import HelloWorld from './components/HelloWorld.vue';
+import axios from 'axios';
 
 export default {
   name: 'app',
   components: {
     HelloWorld
+  },
+  data() {
+    return {
+      results: []
+    }
+  },
+  created() {
+    axios.get('http://localhost:5000')
+      .then(res => {
+        this.results = res.data
+      });
   }
 }
 </script>
